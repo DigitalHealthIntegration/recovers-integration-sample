@@ -99,3 +99,6 @@ lint/tmp/
 .externalNativeBuild
 .cxx
 local.properties
+/.idea/ktfmt.xml
+/.idea/misc.xml
+/.idea/*.xml
