@@ -102,3 +102,4 @@ local.properties
 /.idea/ktfmt.xml
 /.idea/misc.xml
 /.idea/*.xml
+/app/.idea/*.xml
