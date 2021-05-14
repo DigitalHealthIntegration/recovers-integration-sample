@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('..\\mgd_keystore.jks')
+            storePassword 'm4m1g0'
+            keyAlias = 'mgd'
+            keyPassword 'm4m1g0'
+        }
+        release {
+            storeFile file('..\\mgd_keystore.jks')
+            storePassword 'm4m1g0'
+            keyAlias = 'mgd'
+            keyPassword 'm4m1g0'
+        }
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
