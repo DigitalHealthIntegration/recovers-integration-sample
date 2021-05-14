@@ -21,8 +21,8 @@ import com.iprd.federatedid.records.ReportActivityNigeriaNet;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int NEW_REQUEST_CODE = 401;
-    public static int EDIT_REQUEST_CODE = 402;
+    private String shortId = "";
+    private String name = "Rohit Kumar";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +33,17 @@ public class MainActivity extends AppCompatActivity {
         Button btnEdit = findViewById(R.id.btnEdit);
         btnNew.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReportActivityNigeriaNet.class); //new Intent();
-            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_USERNAME, "Rohit Kumar");
+            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_USERNAME, name);
             intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_DEMOGRAPHIC, "sample-demo");
-            startActivityForResult(intent, NEW_REQUEST_CODE);
+            startActivityForResult(intent, ReportActivityNigeriaNet.NEW_REQUEST_CODE);
+
         });
 
         btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReportActivityNigeriaNet.class); //new Intent();
-            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_SHORT_ID, "123456789");
-            startActivityForResult(intent, EDIT_REQUEST_CODE);
+            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_SHORT_ID, shortId);
+            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_USERNAME,name);
+            startActivityForResult(intent, ReportActivityNigeriaNet.EDIT_REQUEST_CODE);
         });
 
     }
@@ -49,23 +51,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        Toast.makeText(this,data.getExtras().getString(ReportActivityNigeriaNet.BUNDLE_KEY_SHORT_ID),Toast.LENGTH_LONG).show();
+        if(data!=null){
+            Toast.makeText(this,
+                    "Number of faces : "+
+                    data.getExtras().getInt(ReportActivityNigeriaNet.BUNDLE_KEY_NUMBER_OF_FACES) +
+                    "Number of houses : "+
+                    data.getExtras().getInt(ReportActivityNigeriaNet.BUNDLE_KEY_NUMBER_OF_HOUSES),
+                    Toast.LENGTH_LONG).show();
+            shortId = data.getExtras().getString(ReportActivityNigeriaNet.BUNDLE_KEY_SHORT_ID);
+        }
+
     }
 
-    void openApp(Context context) {
-        PackageManager manager = context.getPackageManager();
-        try {
-            Intent intent = new Intent(this, ReportActivityNigeriaNet.class); //new Intent();
-            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_USERNAME, "Rohit Kumar");
-            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_DEMOGRAPHIC, "sample-demo");
-//            intent.putExtra(ReportActivityNigeriaNet.BUNDLE_KEY_SHORT_ID,"Rohit Kumar");
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            manager.resolveActivity(intent, 0);
-//            intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.ReportActivityNigeriaNet"));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivityForResult(intent, 0);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }
