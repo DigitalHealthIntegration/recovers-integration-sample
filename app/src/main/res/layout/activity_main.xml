@@ -7,12 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="NEW"
+        app:layout_constraintBottom_toTopOf="@id/btnEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNew" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
