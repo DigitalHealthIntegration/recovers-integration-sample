@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static int NEW_REQUEST_CODE = 401;
     public static int EDIT_REQUEST_CODE = 402;
     public static final String BUNDLE_INPUT_JSON = "input_json";
+    public static final String BUNDLE_OUTPUT_JSON = "output_json";
     public static final String BUNDLE_KEY_USERNAME = "username";
     public static final String BUNDLE_KEY_SHORT_ID = "shortId";
     public static final String BUNDLE_KEY_DEMOGRAPHIC = "demographics";
@@ -58,10 +59,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             Toast.makeText(this,
-                    "Number of faces : " +
-                            data.getExtras().getInt(BUNDLE_KEY_NUMBER_OF_FACES),
+                    "Output Json : " +
+                            data.getExtras().getString(BUNDLE_OUTPUT_JSON),
                     Toast.LENGTH_LONG).show();
-            shortId = data.getExtras().getString(BUNDLE_KEY_SHORT_ID);
         }
 
     }
