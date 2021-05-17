@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_KEY_LOCATION_CAPTURED = "locationCaptured";
 
     private String shortId = "8LDFRK4QVQ7E";
-    private String name = "Rohit Kumar";
+    private String name = "apra2793@gmail.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
