@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int NEW_REQUEST_CODE = 401;
     public static int EDIT_REQUEST_CODE = 402;
+    public static final String BUNDLE_INPUT_JSON = "input_json";
     public static final String BUNDLE_KEY_USERNAME = "username";
     public static final String BUNDLE_KEY_SHORT_ID = "shortId";
     public static final String BUNDLE_KEY_DEMOGRAPHIC = "demographics";
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String shortId = "8LDFRK4QVQ7E";
     private String name = "apra2793@gmail.com";
+    String inputJson = "{\"familyId\": \"123\",\"hcwEmailId\": \"nitins@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"shortId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Rahul\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Disha\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +36,18 @@ public class MainActivity extends AppCompatActivity {
         Button btnNew = findViewById(R.id.btnNew);
         Button btnEdit = findViewById(R.id.btnEdit);
         btnNew.setOnClickListener(v -> {
-            openSmartHealthApp(true);
+            openSmartHealthApp();
         });
 
         btnEdit.setOnClickListener(v -> {
-            openSmartHealthApp(false);
+            openSmartHealthApp();
         });
 
     }
 
-    void openSmartHealthApp(boolean isNew) {
+    void openSmartHealthApp() {
         Intent intent = new Intent("HOME_SCREEN_IPRD");
-        if (isNew) {
-            intent.putExtra(BUNDLE_KEY_USERNAME, name);
-            intent.putExtra(BUNDLE_KEY_DEMOGRAPHIC, "sample-demo");
-        } else {
-            intent.putExtra(BUNDLE_KEY_SHORT_ID, shortId);
-        }
+        intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
         intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.ReportActivityNigeriaNet"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
