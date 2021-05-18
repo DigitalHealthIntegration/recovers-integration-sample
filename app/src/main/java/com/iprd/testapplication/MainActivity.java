@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     public static int NEW_REQUEST_CODE = 401;
@@ -25,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_KEY_NUMBER_OF_HOUSES = "noHouses";
     public static final String BUNDLE_KEY_LOCATION_CAPTURED = "locationCaptured";
 
-    private String shortId = "8LDFRK4QVQ7E";
+    private String shortId = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
-    String inputJson = "{\"familyId\": \"123\",\"hcwEmailId\": \"kash@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"shortId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
+    String inputJson = "{\"familyId\": \"123\",\"hcwUserName\": \"kash@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnEdit.setOnClickListener(v -> {
-            openSmartHealthApp();
+            openSmartHealthAppInEditMode();
         });
 
     }
@@ -53,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
+    void openSmartHealthAppInEditMode() {
+        String inputForEdit = "{\"familyId\": \"123\",\"hcwUserName\": \"kash@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"Update\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"Update\"}]};\n";
+        Intent intent = new Intent("HOME_SCREEN_IPRD");
+        intent.putExtra(BUNDLE_INPUT_JSON, inputForEdit);
+        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.OpenCampLinkHomeActivity"));
+        startActivityForResult(intent, NEW_REQUEST_CODE);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
@@ -62,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
                     "Output Json : " +
                             data.getExtras().getString(BUNDLE_OUTPUT_JSON),
                     Toast.LENGTH_LONG).show();
+            try {
+                JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
+                shortId = jObject.getString("openCampLinkId");
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+            }
+
         }
 
     }
