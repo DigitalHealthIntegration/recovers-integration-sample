@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -25,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_KEY_NUMBER_OF_HOUSES = "noHouses";
     public static final String BUNDLE_KEY_LOCATION_CAPTURED = "locationCaptured";
 
-    private String shortId = "8LDFRK4QVQ7E";
+    private String shortId = "4BXPMGKCK510";
     private String name = "apra2793@gmail.com";
-    String inputJson = "{\"familyId\": \"123\",\"hcwEmailId\": \"nitins@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"shortId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Rahul\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Disha\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
+    String inputJson = "{\"familyId\": \"125\",\"hcwUserName\": \"nitins@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"124\",\"name\": \"XYZ\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"125\",\"name\": \"ABC\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     void openSmartHealthApp() {
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
-        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.ReportActivityNigeriaNet"));
+        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.OpenCampLinkHomeActivity"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     "Output Json : " +
                             data.getExtras().getString(BUNDLE_OUTPUT_JSON),
                     Toast.LENGTH_LONG).show();
+            Log.d("TAG", "onActivityResult: "+ data.getExtras().getString(BUNDLE_OUTPUT_JSON));
         }
-
     }
 }
