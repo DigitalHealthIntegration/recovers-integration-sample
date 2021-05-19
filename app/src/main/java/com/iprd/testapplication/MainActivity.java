@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String shortId = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
-    String inputJson = "{\"familyId\": \"123\",\"hcwUserName\": \"kash@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
+    String inputJson = "{\"familyId\": \"123\",\"hcwUserName\": \"adataintegrity@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
     void openSmartHealthApp() {
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
-        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.OpenCampLinkHomeActivity"));
+        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
     void openSmartHealthAppInEditMode() {
-        String inputForEdit = "{\"familyId\": \"123\",\"hcwUserName\": \"kash@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"3\",\"name\": \"Rohit\",\"age\": \"22\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"Delete\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"Update\"}]};\n";
+        String inputForEdit = "{\"familyId\": \"123\",\"hcwUserName\": \"adataintegrity@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"3\",\"name\": \"Rohit\",\"age\": \"22\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"Delete\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"Update\"}]};\n";
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputForEdit);
-        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.OpenCampLinkHomeActivity"));
+        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             try {
                 JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
-                shortId = jObject.getString("openCampLinkId");
+                if(jObject.getString("resultCode").equals("0")){
+                    shortId = jObject.getString("openCampLinkId");
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
 
