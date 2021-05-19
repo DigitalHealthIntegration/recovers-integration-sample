@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     void openSmartHealthApp() {
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
-        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.OpenCampLinkHomeActivity"));
+        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         String inputForEdit = "{\"familyId\": \"123\",\"hcwUserName\": \"adataintegrity@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"3\",\"name\": \"Rohit\",\"age\": \"22\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"Delete\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"Update\"}]};\n";
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputForEdit);
-        intent.setComponent(new ComponentName("com.iprd.federatedid", "com.iprd.federatedid.records.OpenCampLinkHomeActivity"));
+        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
