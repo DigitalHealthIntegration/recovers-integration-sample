@@ -74,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             try {
                 JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
-                shortId = jObject.getString("openCampLinkId");
+                if(jObject.getString("resultCode").equals("0")){
+                    shortId = jObject.getString("openCampLinkId");
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
 
