@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String shortId = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
-    String inputJson = "{\"familyId\": \"123\",\"hcwUserName\": \"adataintegrity@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
+    String inputJson = "{\"familyId\": \"1234\",\"hcwUserName\": \"nitink@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"11\",\"name\": \"Jeevan\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Tricha\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnNew = findViewById(R.id.btnNew);
         Button btnEdit = findViewById(R.id.btnEdit);
+        Button btnRecall = findViewById(R.id.btnRecall);
         btnNew.setOnClickListener(v -> {
             openSmartHealthApp();
         });
 
         btnEdit.setOnClickListener(v -> {
             openSmartHealthAppInEditMode();
+        });
+
+        btnRecall.setOnClickListener(v -> {
+            openSmartHealthAppInRecallMode();
         });
 
     }
@@ -62,6 +67,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputForEdit);
         intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        startActivityForResult(intent, NEW_REQUEST_CODE);
+    }
+
+    void openSmartHealthAppInRecallMode() {
+        String inputForRecall = "{\n" +
+                "  \"openCampLinkId\": \"\",\n" +
+                "  \"hcwUserName\": \"nitink@apra.in\",\n" +
+                "  \"primaryContactPhone\": \"+919812345678\",\n" +
+                "  \"verificationMethod\": \"NONE\",\n" +
+                "  \"familyMembers\": [" +
+                "  ]\n" +
+                "}";
+        Intent intent = new Intent("RECALL_SCREEN_IPRD");
+        intent.putExtra(BUNDLE_INPUT_JSON, inputForRecall);
+        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkRecallActivity"));
         startActivityForResult(intent, NEW_REQUEST_CODE);
     }
 
