@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
         btnNew.setOnClickListener(v -> {
-            openSmartHealthApp();
+            openSmartHealthAppWithCampaignDetails();
         });
 
         btnEdit.setOnClickListener(v -> {
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.putExtra(BUNDLE_INPUT_JSON, inputJson);
         sendIntent.setAction("HOME_SCREEN_IPRD");
         sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void openSmartHealthAppWithUDF() {
+    void openSmartHealthAppWithCampaignDetails() {
         inputJson = "{\n" +
                 "  \"campaign\": {\n" +
                 "    \"id\": \"6ecb0566-7006-4382-9cdc-202d9010858a\",\n" +
@@ -94,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 "      },\n" +
                 "      {\n" +
                 "        \"k\": \"PHC Location\",\n" +
-                "        \"v\": \"https://goo.gl/maps/AyondpDQRZPNJxUi7\"\n" +
                 "        \"t\": \"url\",\n" +
+                "        \"v\": \"https://goo.gl/maps/AyondpDQRZPNJxUi7\"\n" +
                 "      },\n" +
                 "      {\n" +
                 "        \"k\": \"PHC Phone No\",\n" +
@@ -126,10 +127,15 @@ public class MainActivity extends AppCompatActivity {
                 "    }\n" +
                 "  ]\n" +
                 "}";
-        Intent intent = new Intent("HOME_SCREEN_IPRD");
-        intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
-        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
-        startActivityForResult(intent, NEW_REQUEST_CODE);
+        Intent sendIntent = new Intent();
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.putExtra(BUNDLE_INPUT_JSON, inputJson);
+        sendIntent.setAction("HOME_SCREEN_IPRD");
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, NEW_REQUEST_CODE);
+        }
     }
 
     void openSmartHealthAppInEditMode() {
