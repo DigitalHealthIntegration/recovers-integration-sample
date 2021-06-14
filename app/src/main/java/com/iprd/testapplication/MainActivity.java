@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String shortId = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
-    String inputJson = "{\"familyId\": \"1234\",\"hcwUserName\": \"nitink@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"11\",\"name\": \"Jeevan\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Tricha\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
+    String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"23\",\"name\": \"Matt\",\"dob\": \"1970-05-26\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\",\"dob\": \"1997-07-26\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,67 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void openSmartHealthApp() {
+        Intent intent = new Intent("HOME_SCREEN_IPRD");
+        intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
+        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        startActivityForResult(intent, NEW_REQUEST_CODE);
+    }
+
+    void openSmartHealthAppWithUDF() {
+        inputJson = "{\n" +
+                "  \"campaign\": {\n" +
+                "    \"id\": \"6ecb0566-7006-4382-9cdc-202d9010858a\",\n" +
+                "    \"name\": \"Oyo State June 2021 Health Campaign\",\n" +
+                "    \"verticals\": [\n" +
+                "      2,\n" +
+                "      5\n" +
+                "    ],\n" +
+                "    \"url\": \"https://health.oyostate.gov.ng/tomotiya/\",\n" +
+                "    \"location_prec\": 3,\n" +
+                "    \"time_prec\": 4,\n" +
+                "    \"udf\": [\n" +
+                "      {\n" +
+                "        \"k\": \"PHC ID\",\n" +
+                "        \"v\": \"30/25/1/1/1/0020\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"k\": \"PHC Name\",\n" +
+                "        \"v\": \"Ifelodun Primary Health Centre\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"k\": \"PHC Location\",\n" +
+                "        \"v\": \"https://goo.gl/maps/AyondpDQRZPNJxUi7\"\n" +
+                "        \"t\": \"url\",\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"k\": \"PHC Phone No\",\n" +
+                "        \"t\": \"tel\",\n" +
+                "        \"v\": \"+234 (0) 803 852 1693\"\n" +
+                "      }\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  \"familyId\": \"789\",\n" +
+                "  \"hcwUserName\": \"nks@apra.in\",\n" +
+                "  \"primaryContactPhone\": \"+919812345678\",\n" +
+                "  \"openCampLinkId\": \"\",\n" +
+                "  \"familyMembers\": [\n" +
+                "    {\n" +
+                "      \"memberId\": \"11\",\n" +
+                "      \"name\": \"Matt\",\n" +
+                "      \"dob\": \"1996-09-25\",\n" +
+                "      \"gender\": \"M\",\n" +
+                "      \"status\": \"New\",\n" +
+                "      \"head\": true\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"memberId\": \"12\",\n" +
+                "      \"name\": \"Roma\",\n" +
+                "      \"dob\": \"1997-06-12\",\n" +
+                "      \"gender\": \"F\",\n" +
+                "      \"status\": \"New\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
         Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
         intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
