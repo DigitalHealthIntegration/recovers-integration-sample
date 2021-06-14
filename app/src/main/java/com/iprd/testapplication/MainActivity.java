@@ -56,18 +56,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void openSmartHealthApp() {
-        Intent intent = new Intent("HOME_SCREEN_IPRD");
+       /* Intent intent = new Intent("HOME_SCREEN_IPRD");
         intent.putExtra(BUNDLE_INPUT_JSON, inputJson);
         intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
-        startActivityForResult(intent, NEW_REQUEST_CODE);
+        startActivityForResult(intent, NEW_REQUEST_CODE);*/
+
+        Intent sendIntent = new Intent();
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.setAction("HOME_SCREEN_IPRD");
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, NEW_REQUEST_CODE);
+        }
     }
 
     void openSmartHealthAppInEditMode() {
         String inputForEdit = "{\"familyId\": \"123\",\"hcwUserName\": \"adataintegrity@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"3\",\"name\": \"Rohit\",\"age\": \"22\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"1\",\"name\": \"Adarsh\",\"age\": \"23\",\"gender\": \"M\",\"status\": \"Delete\"},{\"memberId\": \"2\",\"name\": \"Trintera\",\"age\": \"22\",\"gender\": \"F\",\"status\": \"Update\"}]};\n";
-        Intent intent = new Intent("HOME_SCREEN_IPRD");
-        intent.putExtra(BUNDLE_INPUT_JSON, inputForEdit);
-        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
-        startActivityForResult(intent, NEW_REQUEST_CODE);
+
+        Intent sendIntent = new Intent();
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.setAction("HOME_SCREEN_IPRD");
+        sendIntent.putExtra(BUNDLE_INPUT_JSON,inputForEdit);
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, NEW_REQUEST_CODE);
+        }
     }
 
     void openSmartHealthAppInRecallMode() {
@@ -79,10 +94,17 @@ public class MainActivity extends AppCompatActivity {
                 "  \"familyMembers\": [" +
                 "  ]\n" +
                 "}";
-        Intent intent = new Intent("RECALL_SCREEN_IPRD");
-        intent.putExtra(BUNDLE_INPUT_JSON, inputForRecall);
-        intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkRecallActivity"));
-        startActivityForResult(intent, NEW_REQUEST_CODE);
+
+        Intent sendIntent = new Intent();
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.setAction("RECALL_SCREEN_IPRD");
+        sendIntent.putExtra(BUNDLE_INPUT_JSON,inputForRecall);
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, NEW_REQUEST_CODE);
+        }
+
     }
 
     @Override
