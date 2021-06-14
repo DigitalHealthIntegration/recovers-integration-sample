@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void openSmartHealthAppInEditMode() {
-        String inputForEdit = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
+        String inputForEdit = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Deleted\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Updated\"}]};\n";
 
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
