@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 "  \"openCampLinkId\": \"\",\n" +
                 "  \"hcwUserName\": \"nitink@apra.in\",\n" +
                 "  \"primaryContactPhone\": \"+919812345678\",\n" +
-                "  \"verificationMethod\": \"NONE\",\n" +
+                "  \"verificationMethod\": \"ALL\",\n" +
                 "  \"familyMembers\": [" +
                 "  ]\n" +
                 "}";
