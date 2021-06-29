@@ -105,23 +105,23 @@ public class MainActivity extends AppCompatActivity {
                 "      }\n" +
                 "    ]\n" +
                 "  },\n" +
-                "  \"familyId\": \"3ab7c9e1-0d8e-4f47-80e5-d05d141a9221\",\n" +
-                "  \"hcwUserName\": \"sabknitin@apra.in\",\n" +
-                "  \"primaryContactPhone\": \"918105798127\",\n" +
+                "  \"familyId\": \"789\",\n" +
+                "  \"hcwUserName\": \"nks@apra.in\",\n" +
+                "  \"primaryContactPhone\": \"+919812345678\",\n" +
                 "  \"openCampLinkId\": \"\",\n" +
                 "  \"familyMembers\": [\n" +
                 "    {\n" +
-                "      \"memberId\": \"141\",\n" +
-                "      \"name\": \"John\",\n" +
-                "      \"dob\": \"1987-09-25\",\n" +
+                "      \"memberId\": \"11\",\n" +
+                "      \"name\": \"Matt\",\n" +
+                "      \"dob\": \"1996-09-25\",\n" +
                 "      \"gender\": \"M\",\n" +
                 "      \"status\": \"New\",\n" +
                 "      \"head\": true\n" +
                 "    },\n" +
                 "    {\n" +
-                "      \"memberId\": \"142\",\n" +
-                "      \"name\": \"Rae\",\n" +
-                "      \"dob\": \"1991-09-25\",\n" +
+                "      \"memberId\": \"12\",\n" +
+                "      \"name\": \"Roma\",\n" +
+                "      \"dob\": \"1997-06-12\",\n" +
                 "      \"gender\": \"F\",\n" +
                 "      \"status\": \"New\"\n" +
                 "    }\n" +
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void openSmartHealthAppInEditMode() {
-        String inputForEdit = "{\"familyId\": \"4564\",\"hcwUserName\": \"sabknitin@apra.in\",\"primaryContactPhone\": \"918105798127\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"42\",\"name\": \"Adi\",\"dob\": \"1998-06-12\",\"gender\": \"M\",\"status\": \"Updated\"}]};\n";
+        String inputForEdit = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
 
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
