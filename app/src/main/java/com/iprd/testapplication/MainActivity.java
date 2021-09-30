@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.iprd.intent_proto.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
     private String shortId = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
-    String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"23\",\"name\": \"Matt\",\"dob\": \"1970-05-26\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\",\"dob\": \"1997-07-26\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
+    String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"23\",\"name\": \"Matt\",\"dob\": \"1970-05-26\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\",\"dob\": \"1997-07-26\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button btnNew = findViewById(R.id.btnNew);
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 "  },\n" +
                 "  \"familyId\": \"789\",\n" +
                 "  \"hcwUserName\": \"nks@apra.in\",\n" +
-                "  \"primaryContactPhone\": \"+919812345678\",\n" +
+                "  \"primaryContactPhone\": \"\",\n" +
                 "  \"openCampLinkId\": \"\",\n" +
                 "  \"familyMembers\": [\n" +
                 "    {\n" +
