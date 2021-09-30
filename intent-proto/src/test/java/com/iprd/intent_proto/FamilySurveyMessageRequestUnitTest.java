@@ -89,10 +89,10 @@ public class FamilySurveyMessageRequestUnitTest {
         assertEquals((long)familySurveyMessageRequest.getCampaign().getLocationPrecision(),(long)Integer.parseInt("3"));
         assertEquals((long)familySurveyMessageRequest.getCampaign().getTimePrecision(),(long)Integer.parseInt("4"));
         ArrayList<KeyTypeValue> udfExpected = new ArrayList();
-        KeyTypeValue valueOne = new KeyTypeValue("PHC ID","30/25/1/1/1/0020",null);
-        KeyTypeValue valueTwo = new KeyTypeValue("PHC Name","Ifelodun Primary Health Centre",null);
-        KeyTypeValue valueThird = new KeyTypeValue("PHC Location","https://goo.gl/maps/AyondpDQRZPNJxUi7","url");
-        KeyTypeValue valueFourth = new KeyTypeValue("PHC Phone No","+234 (0) 803 852 1693","tel");
+        KeyTypeValue valueOne = new KeyTypeValue("PHC ID",null,"30/25/1/1/1/0020");
+        KeyTypeValue valueTwo = new KeyTypeValue("PHC Name",null,"Ifelodun Primary Health Centre");
+        KeyTypeValue valueThird = new KeyTypeValue("PHC Location","url","https://goo.gl/maps/AyondpDQRZPNJxUi7");
+        KeyTypeValue valueFourth = new KeyTypeValue("PHC Phone No","tel","+234 (0) 803 852 1693");
         udfExpected.add(valueOne);udfExpected.add(valueTwo);udfExpected.add(valueThird);udfExpected.add(valueFourth);
         assertEquals(familySurveyMessageRequest.getCampaign().getUdf(), udfExpected);
         assertEquals(familySurveyMessageRequest.getFamilyID(),"789");

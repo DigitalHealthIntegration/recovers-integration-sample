@@ -2,6 +2,9 @@ package com.iprd.intent_proto;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -12,60 +15,59 @@ import static org.junit.Assert.assertEquals;
 public class BaseBaseRequestMessageBuilderUnitTest {
     @Test
     public void build_withJsonString_correctRequestMessageBuilt() {
-        String inputJson = "{\n" +
-                "  \"campaign\": {\n" +
-                "    \"id\": \"6ecb0566-7006-4382-9cdc-202d9010858a\",\n" +
-                "    \"name\": \"Oyo State June 2021 Health Campaign\",\n" +
-                "    \"verticals\": [\n" +
-                "      2,\n" +
-                "      5\n" +
-                "    ],\n" +
-                "    \"url\": \"https://health.oyostate.gov.ng/tomotiya/\",\n" +
-                "    \"location_prec\": 3,\n" +
-                "    \"time_prec\": 4,\n" +
-                "    \"udf\": [\n" +
-                "      {\n" +
-                "        \"k\": \"PHC ID\",\n" +
-                "        \"v\": \"30/25/1/1/1/0020\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"k\": \"PHC Name\",\n" +
-                "        \"v\": \"Ifelodun Primary Health Centre\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"k\": \"PHC Location\",\n" +
-                "        \"t\": \"url\",\n" +
-                "        \"v\": \"https://goo.gl/maps/AyondpDQRZPNJxUi7\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"k\": \"PHC Phone No\",\n" +
-                "        \"t\": \"tel\",\n" +
-                "        \"v\": \"+234 (0) 803 852 1693\"\n" +
-                "      }\n" +
-                "    ]\n" +
-                "  },\n" +
-                "  \"familyId\": \"789\",\n" +
-                "  \"hcwUserName\": \"nks@apra.in\",\n" +
-                "  \"primaryContactPhone\": \"\",\n" +
-                "  \"openCampLinkId\": \"\",\n" +
-                "  \"familyMembers\": [\n" +
-                "    {\n" +
-                "      \"memberId\": \"11\",\n" +
-                "      \"name\": \"Matt\",\n" +
-                "      \"dob\": \"1996-09-25\",\n" +
-                "      \"gender\": \"M\",\n" +
-                "      \"status\": \"New\",\n" +
-                "      \"head\": true\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"memberId\": \"12\",\n" +
-                "      \"name\": \"Roma\",\n" +
-                "      \"dob\": \"1997-06-12\",\n" +
-                "      \"gender\": \"F\",\n" +
-                "      \"status\": \"New\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
+        KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
+        ArrayList<KeyTypeValue> udf = new ArrayList<>();
+        udf.add(keyTypeValue);
+        ArrayList<Integer> verticals = new ArrayList<>();
+        verticals.add(2);
+        CampaignDataClass campaignDataClass =
+                new CampaignDataClassBuilder()
+                        .setId("campId")
+                        .setName("campName")
+                        .setUrl("url")
+                        .setVerticals(verticals)
+                        .setLocationPrecision(2)
+                        .setTimePrecision(3)
+                        .setUdf(udf)
+                        .build();
+
+        FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
+                new FamilyMemberDataBuilder()
+                        .setDob("12-09-2021")
+                        .setGender("M")
+                        .setHead(true)
+                        .setMemberID("1234")
+                        .setName("kash")
+                        .setStatus("NEW")
+                        .build()
+        };
+
+        FamilySurveyMessageRequest familySurveyMessageRequest =
+                new FamilySurveyMessageRequestBuilder()
+                        .setCampaign(campaignDataClass)
+                        .setFamilyID("tempID")
+                        .setHcwUserName("tempUser")
+                        .setHomeImageUri("ImageTempUri")
+                        .setPrimaryContactPhone("123456")
+                        .setVerificationMethod("BIOMETRIC")
+                        .setOpenCampLinkId("ABCD")
+                        .setFamilyMembers(familyMemberDataClasses)
+                        .build();
+
+        assertEquals(familySurveyMessageRequest.getCampaign().getId(),"campId");
+        assertEquals(familySurveyMessageRequest.getCampaign().getName(),"campName");
+        assertEquals(familySurveyMessageRequest.getCampaign().getVerticals(),verticals);
+        assertEquals(familySurveyMessageRequest.getCampaign().getUrl(),"url");
+        assertEquals((long)familySurveyMessageRequest.getCampaign().getLocationPrecision(),(long)Integer.parseInt("2"));
+        assertEquals((long)familySurveyMessageRequest.getCampaign().getTimePrecision(),(long)Integer.parseInt("3"));
+        assertEquals(familySurveyMessageRequest.getCampaign().getUdf(), udf);
+        assertEquals(familySurveyMessageRequest.getFamilyID(),"tempID");
+        assertEquals(familySurveyMessageRequest.getHcwUserName(),"tempUser");
+        assertEquals(familySurveyMessageRequest.getPrimaryContactPhone(),"123456");
+        assertEquals(familySurveyMessageRequest.getOpenCampLinkId(),"ABCD");
+        assertEquals(familySurveyMessageRequest.getVerificationMethod(), FamilySurveyMessageRequest.VerificationMethod.BIOMETRIC);
+        assertEquals(familySurveyMessageRequest.getHomeImageUri(),"ImageTempUri");
+        assertArrayEquals(familySurveyMessageRequest.getFamilyMembers(),familyMemberDataClasses);
 
     }
 

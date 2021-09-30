@@ -22,7 +22,7 @@ public class KeyTypeValue {
 
     }
 
-    public KeyTypeValue(String key,String value,String type){
+    public KeyTypeValue(String key,String type,String value){
         this.key = key;
         this.value = value;
         this.type = type;
