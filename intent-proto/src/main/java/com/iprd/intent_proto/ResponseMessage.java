@@ -1,11 +1,13 @@
 package com.iprd.intent_proto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.json.JSONArray;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseMessage {
 
     public String getFamilyId() {
@@ -68,4 +70,5 @@ public class ResponseMessage {
     private String resultText;
     @JsonProperty("family Members")
     private JSONArray familyMembers;
+
 }

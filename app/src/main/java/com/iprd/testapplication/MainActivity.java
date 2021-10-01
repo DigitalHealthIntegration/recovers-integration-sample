@@ -17,6 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.iprd.intent_proto.*;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     public static int NEW_REQUEST_CODE = 401;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
         btnNew.setOnClickListener(v -> {
-            openSmartHealthAppWithCampaignDetails();
+            openSmartHealthAppWithCampaignDetailsUsingMessagingProtocol();
         });
 
         btnEdit.setOnClickListener(v -> {
@@ -64,6 +66,55 @@ public class MainActivity extends AppCompatActivity {
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         sendIntent.putExtra(BUNDLE_INPUT_JSON, inputJson);
+        sendIntent.setAction("HOME_SCREEN_IPRD");
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, NEW_REQUEST_CODE);
+        }
+    }
+
+    void openSmartHealthAppWithCampaignDetailsUsingMessagingProtocol() {
+        KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
+        ArrayList<KeyTypeValue> udf = new ArrayList<>();
+        udf.add(keyTypeValue);
+        ArrayList<Integer> verticals = new ArrayList<>();
+        verticals.add(2);
+        CampaignDataClass campaignDataClass =
+                new CampaignDataClassBuilder()
+                        .setId("6ecb0566-7006-4382-9cdc-202d9010858a")
+                        .setName("Oyo State June 2021 Health Campaign")
+                        .setUrl("https://health.oyostate.gov.ng/tomotiya/")
+                        .setVerticals(verticals)
+                        .setLocationPrecision(2)
+                        .setTimePrecision(5)
+                        .setUdf(udf)
+                        .build();
+
+        FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
+                new FamilyMemberDataBuilder()
+                        .setDob("1993-09-12")
+                        .setGender("M")
+                        .setHead(true)
+                        .setMemberID("1234")
+                        .setName("kash")
+                        .setStatus(FamilyMemberDataClass.Status.New)
+                        .build()
+        };
+
+        FamilySurveyMessageRequest familySurveyMessageRequest =
+                new FamilySurveyMessageRequestBuilder()
+                        .setCampaign(campaignDataClass)
+                        .setFamilyID("tempID")
+                        .setHcwUserName("tempUser")
+                        .setPrimaryContactPhone("123456")
+                        .setVerificationMethod("BIOMETRIC")
+                        .setFamilyMembers(familyMemberDataClasses)
+                        .build();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.putExtra(BUNDLE_INPUT_JSON, familySurveyMessageRequest.toJsonString());
         sendIntent.setAction("HOME_SCREEN_IPRD");
         sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");

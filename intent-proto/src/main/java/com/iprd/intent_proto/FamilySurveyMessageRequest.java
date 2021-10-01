@@ -1,10 +1,14 @@
 package com.iprd.intent_proto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FamilySurveyMessageRequest extends BaseRequestMessage {
     public FamilySurveyMessageRequest(){}
 
@@ -104,5 +108,16 @@ public class FamilySurveyMessageRequest extends BaseRequestMessage {
 
     void setFamilySurveyResponse(String value) {
         this.familySurveyResponse = value;
+    }
+
+    @Override
+    public String toJsonString() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

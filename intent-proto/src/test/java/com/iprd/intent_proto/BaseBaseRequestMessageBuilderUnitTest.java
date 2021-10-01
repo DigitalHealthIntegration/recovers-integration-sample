@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class BaseBaseRequestMessageBuilderUnitTest {
     @Test
-    public void build_withJsonString_correctRequestMessageBuilt() {
+    public void build_withObjects_correctRequestMessageBuilt() {
         KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
         ArrayList<KeyTypeValue> udf = new ArrayList<>();
         udf.add(keyTypeValue);
@@ -38,7 +38,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setHead(true)
                         .setMemberID("1234")
                         .setName("kash")
-                        .setStatus("NEW")
+                        .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };
 

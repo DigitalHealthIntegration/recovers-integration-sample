@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FamilyMemberDataClass {
     public FamilyMemberDataClass(){
 
     }
 
     public enum Status{
-        NEW,UPDATE,DELETE;
+        New, Update, Delete; // Using Caps for first letter because of backward compatibility
     }
     @JsonProperty("memberId")
     private String memberID;
@@ -42,19 +43,6 @@ public class FamilyMemberDataClass {
     void setGender(String value) { this.gender = value; }
 
     public Status getStatus() { return status; }
-    void setStatus(String value) {
-        switch (value){
-            case "New":
-                this.status = Status.NEW;
-                break;
-            case "Updated":
-                this.status = Status.UPDATE;
-                break;
-            case "Deleted":
-                this.status = Status.DELETE;
-                break;
-        }
-    }
     void setStatus(Status value) {
         this.status = value;
     }

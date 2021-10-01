@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class FamilySurveyMessageRequestUnitTest {
     @Test
-    public void build_withJsonString_correctFamilySurveyDataClassParsed() throws JSONException, JsonProcessingException {
+    public void jsonString_new_correctFamilySurveyDataClassParsed() throws JSONException, JsonProcessingException {
         String inputJson = "{\n" +
                 "  \"campaign\": {\n" +
                 "    \"id\": \"6ecb0566-7006-4382-9cdc-202d9010858a\",\n" +
@@ -119,7 +119,7 @@ public class FamilySurveyMessageRequestUnitTest {
     }
 
     @Test
-    public void build_withJsonStringEditMode_correctFamilySurveyDataClassParsed() throws JSONException, JsonProcessingException {
+    public void jsonString_edit_correctFamilySurveyDataClassParsed() throws JSONException, JsonProcessingException {
         String shortId = "ABBCD";
         String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
         ObjectMapper objectMapper = new ObjectMapper();
@@ -155,5 +155,4 @@ public class FamilySurveyMessageRequestUnitTest {
         };
         assertArrayEquals(familySurveyMessageRequest.getFamilyMembers(),familyMemberDataClasses);
     }
-
 }

@@ -28,15 +28,11 @@ public class FamilyMemberDataBuilder  {
         return this;
     }
 
-    public FamilyMemberDataBuilder setStatus(String value) {
-        familyMemberDataClass.setStatus(value);
-        return this;
-    }
-
     public FamilyMemberDataBuilder setStatus(FamilyMemberDataClass.Status value) {
         familyMemberDataClass.setStatus(value);
         return this;
     }
+
     private FamilyMemberDataClass familyMemberDataClass;
 
     public FamilyMemberDataBuilder(){
