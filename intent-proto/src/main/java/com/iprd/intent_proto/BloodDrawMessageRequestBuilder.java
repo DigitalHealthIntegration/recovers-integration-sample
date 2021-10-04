@@ -57,6 +57,11 @@ public class BloodDrawMessageRequestBuilder extends BaseRequestMessageBuilder {
         return this;
     }
 
+    public BloodDrawMessageRequestBuilder setHcwUserId(String hcwUserId) {
+        bloodDrawRequest.setHcwUserId(hcwUserId);
+        return this;
+    }
+
     private BloodDrawMessageRequest bloodDrawRequest;
 
     public BloodDrawMessageRequestBuilder(){

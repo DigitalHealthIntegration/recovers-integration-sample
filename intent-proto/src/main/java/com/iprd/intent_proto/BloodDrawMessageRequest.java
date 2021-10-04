@@ -16,6 +16,8 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
     private String familyID;
     @JsonProperty("hcwUserName")
     private String hcwUserName;
+    @JsonProperty("hcwUserId")
+    private String hcwUserId;
     @JsonProperty("primaryContactPhone")
     private String primaryContactPhone;
     @JsonProperty("familyMemberDataClasses")
@@ -125,6 +127,14 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
 
     void setClinicName(String clinicName) {
         this.clinicName = clinicName;
+    }
+
+    public String getHcwUserId() {
+        return hcwUserId;
+    }
+
+    void setHcwUserId(String hcwUserId) {
+        this.hcwUserId = hcwUserId;
     }
 
     @Override

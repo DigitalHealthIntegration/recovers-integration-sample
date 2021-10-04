@@ -106,6 +106,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setCampaign(campaignDataClass)
                         .setFamilyID("tempID")
                         .setHcwUserName("tempUser")
+                        .setHcwUserId("tempIdHCW")
                         .setHomeImageUri("ImageTempUri")
                         .setPrimaryContactPhone("123456")
                         .setVerificationMethod("BIOMETRIC")
@@ -124,6 +125,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
         assertEquals(bloodDrawMessageRequest.getCampaign().getUdf(), udf);
         assertEquals(bloodDrawMessageRequest.getFamilyID(),"tempID");
         assertEquals(bloodDrawMessageRequest.getHcwUserName(),"tempUser");
+        assertEquals(bloodDrawMessageRequest.getHcwUserId(),"tempIdHCW");
         assertEquals(bloodDrawMessageRequest.getPrimaryContactPhone(),"123456");
         assertEquals(bloodDrawMessageRequest.getOpenCampLinkId(),"ABCD");
         assertEquals(bloodDrawMessageRequest.getVerificationMethod(), FamilySurveyMessageRequest.VerificationMethod.BIOMETRIC);
