@@ -24,6 +24,8 @@ public class FamilyMemberDataClass {
     private String gender;
     @JsonProperty("status")
     private Status status;
+    @JsonProperty("inputOpenCampLinkId")
+    private String inputOpenCampLinkId;
     @JsonProperty("head")
     private boolean head = false;
 
@@ -45,6 +47,15 @@ public class FamilyMemberDataClass {
     public Status getStatus() { return status; }
     void setStatus(Status value) {
         this.status = value;
+    }
+
+
+    public String getInputOpenCampLinkId() {
+        return inputOpenCampLinkId;
+    }
+
+    void setInputOpenCampLinkId(String inputOpenCampLinkId) {
+        this.inputOpenCampLinkId = inputOpenCampLinkId;
     }
 
     @Override

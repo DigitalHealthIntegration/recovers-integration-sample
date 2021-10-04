@@ -33,6 +33,11 @@ public class FamilyMemberDataBuilder  {
         return this;
     }
 
+    public FamilyMemberDataBuilder setInputOpenCampLinkId(String inputOpenCampLinkId) {
+        familyMemberDataClass.setInputOpenCampLinkId(inputOpenCampLinkId);
+        return this;
+    }
+
     private FamilyMemberDataClass familyMemberDataClass;
 
     public FamilyMemberDataBuilder(){

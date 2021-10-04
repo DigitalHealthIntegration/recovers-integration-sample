@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class BaseBaseRequestMessageBuilderUnitTest {
     @Test
-    public void build_withObjects_correctRequestMessageBuilt() {
+    public void build_familySurveyMessage_correctRequestMessageBuilt() {
         KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
         ArrayList<KeyTypeValue> udf = new ArrayList<>();
         udf.add(keyTypeValue);
@@ -69,6 +69,68 @@ public class BaseBaseRequestMessageBuilderUnitTest {
         assertEquals(familySurveyMessageRequest.getHomeImageUri(),"ImageTempUri");
         assertArrayEquals(familySurveyMessageRequest.getFamilyMembers(),familyMemberDataClasses);
 
+    }
+
+    @Test
+    public void build_bloodDrawMessage_correctRequestMessageBuilt() {
+        KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
+        ArrayList<KeyTypeValue> udf = new ArrayList<>();
+        udf.add(keyTypeValue);
+        ArrayList<Integer> verticals = new ArrayList<>();
+        verticals.add(2);
+        CampaignDataClass campaignDataClass =
+                new CampaignDataClassBuilder()
+                        .setId("campId")
+                        .setName("campName")
+                        .setUrl("url")
+                        .setVerticals(verticals)
+                        .setLocationPrecision(2)
+                        .setTimePrecision(3)
+                        .setUdf(udf)
+                        .build();
+
+        FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
+                new FamilyMemberDataBuilder()
+                        .setDob("12-09-2021")
+                        .setGender("M")
+                        .setHead(true)
+                        .setMemberID("1234")
+                        .setInputOpenCampLinkId("ABSD1234EFGH")
+                        .setName("kash")
+                        .setStatus(FamilyMemberDataClass.Status.New)
+                        .build()
+        };
+
+        BloodDrawMessageRequest bloodDrawMessageRequest =
+                new BloodDrawMessageRequestBuilder()
+                        .setCampaign(campaignDataClass)
+                        .setFamilyID("tempID")
+                        .setHcwUserName("tempUser")
+                        .setHomeImageUri("ImageTempUri")
+                        .setPrimaryContactPhone("123456")
+                        .setVerificationMethod("BIOMETRIC")
+                        .setOpenCampLinkId("ABCD")
+                        .setClinicGuid("123456789")
+                        .setClinicName("Clinic1234")
+                        .setFamilyMembers(familyMemberDataClasses)
+                        .build();
+
+        assertEquals(bloodDrawMessageRequest.getCampaign().getId(),"campId");
+        assertEquals(bloodDrawMessageRequest.getCampaign().getName(),"campName");
+        assertEquals(bloodDrawMessageRequest.getCampaign().getVerticals(),verticals);
+        assertEquals(bloodDrawMessageRequest.getCampaign().getUrl(),"url");
+        assertEquals((long)bloodDrawMessageRequest.getCampaign().getLocationPrecision(),(long)Integer.parseInt("2"));
+        assertEquals((long)bloodDrawMessageRequest.getCampaign().getTimePrecision(),(long)Integer.parseInt("3"));
+        assertEquals(bloodDrawMessageRequest.getCampaign().getUdf(), udf);
+        assertEquals(bloodDrawMessageRequest.getFamilyID(),"tempID");
+        assertEquals(bloodDrawMessageRequest.getHcwUserName(),"tempUser");
+        assertEquals(bloodDrawMessageRequest.getPrimaryContactPhone(),"123456");
+        assertEquals(bloodDrawMessageRequest.getOpenCampLinkId(),"ABCD");
+        assertEquals(bloodDrawMessageRequest.getVerificationMethod(), FamilySurveyMessageRequest.VerificationMethod.BIOMETRIC);
+        assertEquals(bloodDrawMessageRequest.getHomeImageUri(),"ImageTempUri");
+        assertArrayEquals(bloodDrawMessageRequest.getFamilyMembers(),familyMemberDataClasses);
+        assertEquals(bloodDrawMessageRequest.getClinicGuid(),"123456789");
+        assertEquals(bloodDrawMessageRequest.getClinicName(),"Clinic1234");
     }
 
 }
