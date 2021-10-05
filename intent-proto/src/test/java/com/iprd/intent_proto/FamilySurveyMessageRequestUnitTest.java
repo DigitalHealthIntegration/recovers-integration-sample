@@ -63,7 +63,8 @@ public class FamilySurveyMessageRequestUnitTest {
                 "  \"familyMembers\": [\n" +
                 "    {\n" +
                 "      \"memberId\": \"11\",\n" +
-                "      \"name\": \"Matt\",\n" +
+                "      \"firstName\": \"Matt\",\n" +
+                "      \"lastName\": \"Nime\",\n" +
                 "      \"dob\": \"1996-09-25\",\n" +
                 "      \"gender\": \"M\",\n" +
                 "      \"status\": \"New\",\n" +
@@ -71,7 +72,8 @@ public class FamilySurveyMessageRequestUnitTest {
                 "    },\n" +
                 "    {\n" +
                 "      \"memberId\": \"12\",\n" +
-                "      \"name\": \"Roma\",\n" +
+                "      \"firstName\": \"Jeff\",\n" +
+                "      \"lastName\": \"Nime\",\n" +
                 "      \"dob\": \"1997-06-12\",\n" +
                 "      \"gender\": \"F\",\n" +
                 "      \"status\": \"New\"\n" +
@@ -101,7 +103,8 @@ public class FamilySurveyMessageRequestUnitTest {
         assertEquals(familySurveyMessageRequest.getOpenCampLinkId(),"ABCD1234");
         FamilyMemberDataClass[] familyMemberDataClasses = {objectMapper.readValue( "    {\n" +
                 "      \"memberId\": \"11\",\n" +
-                "      \"name\": \"Matt\",\n" +
+                "      \"firstName\": \"Matt\",\n" +
+                "      \"lastName\": \"Nime\",\n" +
                 "      \"dob\": \"1996-09-25\",\n" +
                 "      \"gender\": \"M\",\n" +
                 "      \"status\": \"New\",\n" +
@@ -109,7 +112,8 @@ public class FamilySurveyMessageRequestUnitTest {
                 "    }",FamilyMemberDataClass.class),
                 objectMapper.readValue("    {\n" +
                         "      \"memberId\": \"12\",\n" +
-                        "      \"name\": \"Roma\",\n" +
+                        "      \"firstName\": \"Jeff\",\n" +
+                        "      \"lastName\": \"Nime\",\n" +
                         "      \"dob\": \"1997-06-12\",\n" +
                         "      \"gender\": \"F\",\n" +
                         "      \"status\": \"New\"\n" +
@@ -121,7 +125,7 @@ public class FamilySurveyMessageRequestUnitTest {
     @Test
     public void jsonString_edit_correctFamilySurveyDataClassParsed() throws JSONException, JsonProcessingException {
         String shortId = "ABBCD";
-        String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
+        String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"firstName\": \"Jeff\",\"lastName\": \"Nime\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"firstName\": \"Roma\",\"lastName\": \"Nime\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"firstName\": \"Time\",\"lastName\": \"Nime\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayList<Integer> verticals =new ArrayList<>();
         verticals.add(2);verticals.add(5);
@@ -133,21 +137,24 @@ public class FamilySurveyMessageRequestUnitTest {
         assertEquals(familySurveyMessageRequest.getOpenCampLinkId(),shortId);
         FamilyMemberDataClass[] familyMemberDataClasses = {objectMapper.readValue( "    {\n" +
                 "      \"memberId\": \"13\",\n" +
-                "      \"name\": \"Paul\",\n" +
+                "      \"firstName\": \"Jeff\",\n" +
+                "      \"lastName\": \"Nime\",\n" +
                 "      \"dob\": \"1998-05-03\",\n" +
                 "      \"gender\": \"M\",\n" +
                 "      \"status\": \"New\"\n" +
                 "    }",FamilyMemberDataClass.class),
                 objectMapper.readValue("    {\n" +
                         "      \"memberId\": \"12\",\n" +
-                        "      \"name\": \"Roma\",\n" +
+                        "      \"firstName\": \"Roma\",\n" +
+                        "      \"lastName\": \"Nime\",\n" +
                         "      \"dob\": \"1997-06-12\",\n" +
                         "      \"gender\": \"F\",\n" +
                         "      \"status\": \"Delete\"\n" +
                         "    }\n",FamilyMemberDataClass.class),
                 objectMapper.readValue("    {\n" +
                         "      \"memberId\": \"11\",\n" +
-                        "      \"name\": \"Matt\",\n" +
+                        "      \"firstName\": \"Time\",\n" +
+                        "      \"lastName\": \"Nime\",\n" +
                         "      \"dob\": \"1993-09-25\",\n" +
                         "      \"gender\": \"M\",\n" +
                         "      \"status\": \"Update\"\n" +

@@ -1,7 +1,5 @@
 package com.iprd.intent_proto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class FamilyMemberDataBuilder  {
     public FamilyMemberDataBuilder setHead(boolean head) {
         familyMemberDataClass.setHead(head);
@@ -13,8 +11,8 @@ public class FamilyMemberDataBuilder  {
         return this;
     }
 
-    public FamilyMemberDataBuilder setName(String value) {
-        familyMemberDataClass.setName(value);
+    public FamilyMemberDataBuilder setLastName(String value) {
+        familyMemberDataClass.setLastName(value);
         return this;
     }
 
@@ -35,6 +33,11 @@ public class FamilyMemberDataBuilder  {
 
     public FamilyMemberDataBuilder setInputOpenCampLinkId(String inputOpenCampLinkId) {
         familyMemberDataClass.setInputOpenCampLinkId(inputOpenCampLinkId);
+        return this;
+    }
+
+    public FamilyMemberDataBuilder setFirstName(String firstName) {
+        familyMemberDataClass.setFirstName(firstName);
         return this;
     }
 

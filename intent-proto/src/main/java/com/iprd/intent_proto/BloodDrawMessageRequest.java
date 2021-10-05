@@ -18,8 +18,10 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
     private String hcwUserName;
     @JsonProperty("hcwUserId")
     private String hcwUserId;
-    @JsonProperty("primaryContactPhone")
-    private String primaryContactPhone;
+    @JsonProperty("phoneNumber")
+    private String phoneNumber;
+    @JsonProperty("countryCode")
+    private String countryCode;
     @JsonProperty("familyMemberDataClasses")
     private FamilyMemberDataClass[] familyMemberDataClasses;
     @JsonProperty("openCampLinkId")
@@ -88,14 +90,6 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
         this.hcwUserName = value;
     }
 
-    public String getPrimaryContactPhone() {
-        return primaryContactPhone;
-    }
-
-    void setPrimaryContactPhone(String value) {
-        this.primaryContactPhone = value;
-    }
-
     public FamilyMemberDataClass[] getFamilyMembers() {
         return familyMemberDataClasses;
     }
@@ -135,6 +129,22 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
 
     void setHcwUserId(String hcwUserId) {
         this.hcwUserId = hcwUserId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     @Override

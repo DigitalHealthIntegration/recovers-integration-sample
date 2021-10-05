@@ -37,7 +37,8 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setGender("M")
                         .setHead(true)
                         .setMemberID("1234")
-                        .setName("kash")
+                        .setFirstName("test")
+                        .setLastName("name")
                         .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };
@@ -96,7 +97,8 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setHead(true)
                         .setMemberID("1234")
                         .setInputOpenCampLinkId("ABSD1234EFGH")
-                        .setName("kash")
+                        .setFirstName("test")
+                        .setLastName("name")
                         .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };
@@ -108,7 +110,8 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setHcwUserName("tempUser")
                         .setHcwUserId("tempIdHCW")
                         .setHomeImageUri("ImageTempUri")
-                        .setPrimaryContactPhone("123456")
+                        .setCountryCode("+91")
+                        .setPhoneNumber("123456")
                         .setVerificationMethod("BIOMETRIC")
                         .setOpenCampLinkId("ABCD")
                         .setClinicGuid("123456789")
@@ -126,7 +129,8 @@ public class BaseBaseRequestMessageBuilderUnitTest {
         assertEquals(bloodDrawMessageRequest.getFamilyID(),"tempID");
         assertEquals(bloodDrawMessageRequest.getHcwUserName(),"tempUser");
         assertEquals(bloodDrawMessageRequest.getHcwUserId(),"tempIdHCW");
-        assertEquals(bloodDrawMessageRequest.getPrimaryContactPhone(),"123456");
+        assertEquals(bloodDrawMessageRequest.getPhoneNumber(),"123456");
+        assertEquals(bloodDrawMessageRequest.getCountryCode(),"+91");
         assertEquals(bloodDrawMessageRequest.getOpenCampLinkId(),"ABCD");
         assertEquals(bloodDrawMessageRequest.getVerificationMethod(), FamilySurveyMessageRequest.VerificationMethod.BIOMETRIC);
         assertEquals(bloodDrawMessageRequest.getHomeImageUri(),"ImageTempUri");

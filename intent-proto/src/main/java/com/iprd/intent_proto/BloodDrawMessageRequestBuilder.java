@@ -21,13 +21,18 @@ public class BloodDrawMessageRequestBuilder extends BaseRequestMessageBuilder {
         return this;
     }
 
-    public BloodDrawMessageRequestBuilder setHcwUserName(String value) {
-        bloodDrawRequest.setHcwUserName(value);
+    public BloodDrawMessageRequestBuilder setPhoneNumber(String phoneNumber) {
+        bloodDrawRequest.setPhoneNumber(phoneNumber);
         return this;
     }
 
-    public BloodDrawMessageRequestBuilder setPrimaryContactPhone(String value) {
-        bloodDrawRequest.setPrimaryContactPhone(value);
+    public BloodDrawMessageRequestBuilder setCountryCode(String countryCode) {
+        bloodDrawRequest.setCountryCode(countryCode);
+        return this;
+    }
+
+    public BloodDrawMessageRequestBuilder setHcwUserName(String value) {
+        bloodDrawRequest.setHcwUserName(value);
         return this;
     }
 

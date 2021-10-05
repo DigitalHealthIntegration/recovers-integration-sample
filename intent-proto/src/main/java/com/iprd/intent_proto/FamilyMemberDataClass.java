@@ -2,8 +2,6 @@ package com.iprd.intent_proto;
 
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.Objects;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FamilyMemberDataClass {
@@ -16,8 +14,10 @@ public class FamilyMemberDataClass {
     }
     @JsonProperty("memberId")
     private String memberID;
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("firstName")
+    private String firstName;
+    @JsonProperty("lastName")
+    private String lastName;
     @JsonProperty("dob")
     private String dob;
     @JsonProperty("gender")
@@ -35,8 +35,8 @@ public class FamilyMemberDataClass {
     public String getMemberID() { return memberID; }
     void setMemberID(String value) { this.memberID = value; }
 
-    public String getName() { return name; }
-    void setName(String value) { this.name = value; }
+    public String getLastName() { return lastName; }
+    void setLastName(String value) { this.lastName = value; }
 
     public String getDob() { return dob; }
     void setDob(String value) { this.dob = value; }
@@ -58,6 +58,14 @@ public class FamilyMemberDataClass {
         this.inputOpenCampLinkId = inputOpenCampLinkId;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,7 +73,8 @@ public class FamilyMemberDataClass {
         FamilyMemberDataClass that = (FamilyMemberDataClass) o;
         return head == that.head &&
                 memberID.equals(that.memberID) &&
-                name.equals(that.name) &&
+                lastName.equals(that.lastName) &&
+                firstName.equals(that.firstName) &&
                 dob.equals(that.dob) &&
                 gender.equals(that.gender) &&
                 status == that.status;
