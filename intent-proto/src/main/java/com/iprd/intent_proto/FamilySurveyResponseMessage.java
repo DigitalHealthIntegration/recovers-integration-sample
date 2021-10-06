@@ -3,12 +3,14 @@ package com.iprd.intent_proto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseMessage {
+public class FamilySurveyResponseMessage extends BaseResponseMessage {
 
     public String getFamilyId() {
         return familyId;
@@ -34,22 +36,6 @@ public class ResponseMessage {
         this.hcwUserName = hcwUserName;
     }
 
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getResultText() {
-        return resultText;
-    }
-
-    void setResultText(String resultText) {
-        this.resultText = resultText;
-    }
-
     public JSONArray getFamilyMembers() {
         return familyMembers;
     }
@@ -64,11 +50,17 @@ public class ResponseMessage {
     private String primaryContactPhone;
     @JsonProperty("hcwUserName")
     private String hcwUserName;
-    @JsonProperty("result-code")
-    private String resultCode;
-    @JsonProperty("result-text")
-    private String resultText;
     @JsonProperty("family Members")
     private JSONArray familyMembers;
 
+    @Override
+    public String toJsonString() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
