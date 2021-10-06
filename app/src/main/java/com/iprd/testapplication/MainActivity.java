@@ -1,13 +1,21 @@
 package com.iprd.testapplication;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.iprd.intent_proto.BloodDrawMessageRequest;
 import com.iprd.intent_proto.BloodDrawMessageRequestBuilder;
@@ -22,12 +30,17 @@ import com.iprd.intent_proto.KeyTypeValue;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import static com.iprd.testapplication.QrScannerActivity.QR_DATA_BUNDLE_KEY;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 0;
     public static int NEW_REQUEST_CODE = 401;
+    public static int QR_REQUEST_CODE = 403;
     public static int EDIT_REQUEST_CODE = 402;
     public static final String BUNDLE_INPUT_JSON = "input_json";
     public static final String BUNDLE_OUTPUT_JSON = "output_json";
@@ -37,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_KEY_NUMBER_OF_FACES = "noFaces";
     public static final String BUNDLE_KEY_NUMBER_OF_HOUSES = "noHouses";
     public static final String BUNDLE_KEY_LOCATION_CAPTURED = "locationCaptured";
-
     private String shortId = "51GY4AWC5L76";
+    private String shortIdToRecallWithQR = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
     String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"23\",\"name\": \"Matt\",\"dob\": \"1970-05-26\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\",\"dob\": \"1997-07-26\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
@@ -50,12 +63,11 @@ public class MainActivity extends AppCompatActivity {
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
         Button btnCheckIn = findViewById(R.id.btnCheckIn);
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
-//
-//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CODE);
-//        } else {
-//
-//        }
+        Button btnShowLinking = findViewById(R.id.btnShowLinking);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
+        }
         btnNew.setOnClickListener(v -> {
             openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw();
         });
@@ -68,10 +80,22 @@ public class MainActivity extends AppCompatActivity {
             openSmartHealthAppInRecallMode();
         });
 
+        btnShowLinking.setOnClickListener(v -> {
+            openQRForLinkingTest(true);
+        });
+
+
         btnCheckIn.setOnClickListener(v -> {
             openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw();
         });
 
+    }
+
+    void openQRForLinkingTest(boolean openQRScanFirst){
+        if(openQRScanFirst){
+            Intent scannerIntent =new Intent(this, QrScannerActivity.class);
+            startActivity(scannerIntent);
+        }
     }
 
     void openSmartHealthApp() {
@@ -93,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     void openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw() {
+        KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
         ArrayList<KeyTypeValue> udf = new ArrayList<>();
+        udf.add(keyTypeValue);
         ArrayList<Integer> verticals = new ArrayList<>();
         verticals.add(2);
         verticals.add(5);
@@ -117,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         .setMemberID("1234")
                         .setFirstName("kash")
                         .setLastName("jois")
-                        .setInputOpenCampLinkId("AMWIWYC627FW")
+                        .setInputOpenCampLinkId("L8MJJCCVRLF4")
                         .setStatus(FamilyMemberDataClass.Status.Update)
                         .build()
         };
@@ -301,22 +327,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            Toast.makeText(this,
-                    "Output Json : " +
-                            data.getExtras().getString(BUNDLE_OUTPUT_JSON),
-                    Toast.LENGTH_LONG).show();
-            try {
-                JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
-                if (jObject.getString("resultCode").equals("0")) {
-                    shortId = jObject.getString("openCampLinkId");
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if(requestCode == QR_REQUEST_CODE) {
+            if (data != null) {
 
             }
-
         }
-
+         else if (requestCode == NEW_REQUEST_CODE) {
+             if(data!=null) {
+                 Toast.makeText(this,
+                         "Output Json : " +
+                                 data.getExtras().getString(BUNDLE_OUTPUT_JSON),
+                         Toast.LENGTH_LONG).show();
+                 try {
+                     JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
+                     if(jObject.getString("resultCode").equals("0")){
+                         shortId = jObject.getString("openCampLinkId");
+                     }
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+            }
+            }
+        }
     }
-}

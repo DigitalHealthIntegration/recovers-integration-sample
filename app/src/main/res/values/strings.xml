@@ -6,4 +6,5 @@
     <string name="edit">Edit</string>
     <string name="recall">Recall</string>
     <string name="check_in">Check-In</string>
+    <string name="show_linking">Show linking</string>
 </resources>
