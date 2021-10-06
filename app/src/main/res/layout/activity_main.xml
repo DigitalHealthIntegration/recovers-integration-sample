@@ -3,24 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="20dp"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnNew"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tvFamilySurvey"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NEW"
-        app:layout_constraintBottom_toTopOf="@id/btnEdit"
+        android:gravity="center"
+        android:text="@string/family_survey"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnNew"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="New"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/btnEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFamilySurvey"/>
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toTopOf="@id/btnRecall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,12 +42,34 @@
 
     <Button
         android:id="@+id/btnRecall"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recall"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/recall"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnEdit" />
+
+    <TextView
+        android:id="@+id/tvBloodDraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/blood_draw"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRecall"/>
+
+    <Button
+        android:id="@+id/btnCheckIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/check_in"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBloodDraw"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

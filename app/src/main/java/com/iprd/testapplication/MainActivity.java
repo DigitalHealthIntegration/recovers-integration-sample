@@ -1,29 +1,32 @@
 package com.iprd.testapplication;
 
-import android.Manifest;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+
+import com.iprd.intent_proto.BloodDrawMessageRequest;
+import com.iprd.intent_proto.BloodDrawMessageRequestBuilder;
+import com.iprd.intent_proto.CampaignDataClass;
+import com.iprd.intent_proto.CampaignDataClassBuilder;
+import com.iprd.intent_proto.FamilyMemberDataBuilder;
+import com.iprd.intent_proto.FamilyMemberDataClass;
+import com.iprd.intent_proto.FamilySurveyMessageRequest;
+import com.iprd.intent_proto.FamilySurveyMessageRequestBuilder;
+import com.iprd.intent_proto.KeyTypeValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.iprd.intent_proto.*;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PERMISSION_REQUEST_CODE = 0 ;
+    private static final int PERMISSION_REQUEST_CODE = 0;
     public static int NEW_REQUEST_CODE = 401;
     public static int EDIT_REQUEST_CODE = 402;
     public static final String BUNDLE_INPUT_JSON = "input_json";
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnNew = findViewById(R.id.btnNew);
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
+        Button btnCheckIn = findViewById(R.id.btnCheckIn);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
 //
 //            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CODE);
@@ -62,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         btnRecall.setOnClickListener(v -> {
             openSmartHealthAppInRecallMode();
+        });
+
+        btnCheckIn.setOnClickListener(v -> {
+            openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw();
         });
 
     }
@@ -85,51 +93,52 @@ public class MainActivity extends AppCompatActivity {
 
 
     void openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw() {
-        KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
         ArrayList<KeyTypeValue> udf = new ArrayList<>();
-        udf.add(keyTypeValue);
         ArrayList<Integer> verticals = new ArrayList<>();
         verticals.add(2);
+        verticals.add(5);
+
         CampaignDataClass campaignDataClass =
                 new CampaignDataClassBuilder()
-                        .setId("6ecb0566-7006-4382-9cdc-202d9010858a")
-                        .setName("Oyo State June 2021 Health Campaign")
+                        .setId("7712d9b2-1ae1-11ec-9621-0242ac130002")
+                        .setName("Blood Draw Campaign")
                         .setUrl("https://health.oyostate.gov.ng/tomotiya/")
                         .setVerticals(verticals)
-                        .setLocationPrecision(2)
-                        .setTimePrecision(5)
+                        .setLocationPrecision(7)
+                        .setTimePrecision(9)
                         .setUdf(udf)
                         .build();
 
         FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
                 new FamilyMemberDataBuilder()
-                        .setDob("1993-09-12")
+                        .setDob("1997-09-12")
                         .setGender("M")
                         .setHead(true)
-                        .setInputOpenCampLinkId("ABCDEFGH")
                         .setMemberID("1234")
                         .setFirstName("kash")
-                        .setLastName("last")
-                        .setStatus(FamilyMemberDataClass.Status.New)
+                        .setLastName("jois")
+                        .setInputOpenCampLinkId("AMWIWYC627FW")
+                        .setStatus(FamilyMemberDataClass.Status.Update)
                         .build()
         };
 
-        BloodDrawMessageRequest bloodDrawMessageRequest =
-                new BloodDrawMessageRequestBuilder()
-                        .setCampaign(campaignDataClass)
-                        .setFamilyID("tempID")
-                        .setHcwUserName("tempUser")
-                        .setCountryCode("+91")
-                        .setPhoneNumber("9712528223")
-                        .setVerificationMethod("BIOMETRIC")
-                        .setFamilyMembers(familyMemberDataClasses)
-                        .build();
+        BloodDrawMessageRequest bloodDrawMessageRequest = new
+                BloodDrawMessageRequestBuilder()
+                .setCampaign(campaignDataClass)
+                .setHcwUserId("n@s.in")
+                .setHcwUserName("N S")
+                .setClinicGuid("80608e5b-993e-4f27-97ed-f89188aa0954")
+                .setClinicName("Narayana Hospital")
+                .setFamilyMembers(familyMemberDataClasses)
+                .setCountryCode("+91")
+                .setPhoneNumber("8105798127")
+                .build();
 
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         sendIntent.putExtra(BUNDLE_INPUT_JSON, bloodDrawMessageRequest.toJsonString());
         sendIntent.setAction("HOME_SCREEN_IPRD");
-        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        sendIntent.setComponent(new ComponentName("com.iprd.blooddraw", "com.iprd.blooddraw.home.HomeActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
         if (sendIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(chooser, NEW_REQUEST_CODE);
@@ -254,12 +263,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void openSmartHealthAppInEditMode() {
-        String inputForEdit = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\""+shortId+"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
+        String inputForEdit = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"+918923645896\",\"openCampLinkId\":\"" + shortId + "\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"13\",\"name\": \"Paul\",\"dob\": \"1998-05-03\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\", \"dob\": \"1997-06-12\",\"gender\": \"F\",\"status\": \"Delete\"},{\"memberId\": \"11\",\"name\": \"Matt\",\"dob\": \"1993-09-25\",\"gender\": \"M\",\"status\": \"Update\"}]};\n";
 
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         sendIntent.setAction("HOME_SCREEN_IPRD");
-        sendIntent.putExtra(BUNDLE_INPUT_JSON,inputForEdit);
+        sendIntent.putExtra(BUNDLE_INPUT_JSON, inputForEdit);
         sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
         if (sendIntent.resolveActivity(getPackageManager()) != null) {
@@ -280,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         sendIntent.setAction("RECALL_SCREEN_IPRD");
-        sendIntent.putExtra(BUNDLE_INPUT_JSON,inputForRecall);
+        sendIntent.putExtra(BUNDLE_INPUT_JSON, inputForRecall);
         sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkRecallActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
         if (sendIntent.resolveActivity(getPackageManager()) != null) {
@@ -299,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             try {
                 JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
-                if(jObject.getString("resultCode").equals("0")){
+                if (jObject.getString("resultCode").equals("0")) {
                     shortId = jObject.getString("openCampLinkId");
                 }
             } catch (JSONException e) {

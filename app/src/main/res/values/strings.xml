@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TestApplication</string>
     <string name="no_barcode_detected">No barcode detected</string>
+    <string name="family_survey">-------------------- FAMILY SURVEY --------------------</string>
+    <string name="blood_draw">-------------------- BLOOD DRAW --------------------</string>
+    <string name="edit">Edit</string>
+    <string name="recall">Recall</string>
+    <string name="check_in">Check-In</string>
 </resources>
