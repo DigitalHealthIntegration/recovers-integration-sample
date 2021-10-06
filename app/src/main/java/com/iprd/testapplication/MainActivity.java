@@ -1,5 +1,6 @@
 package com.iprd.testapplication;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PERMISSION_REQUEST_CODE = 0 ;
     public static int NEW_REQUEST_CODE = 401;
     public static int EDIT_REQUEST_CODE = 402;
     public static final String BUNDLE_INPUT_JSON = "input_json";
@@ -43,8 +46,14 @@ public class MainActivity extends AppCompatActivity {
         Button btnNew = findViewById(R.id.btnNew);
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
+//
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CODE);
+//        } else {
+//
+//        }
         btnNew.setOnClickListener(v -> {
-            openSmartHealthAppWithCampaignDetailsUsingMessagingProtocol();
+            openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw();
         });
 
         btnEdit.setOnClickListener(v -> {
@@ -66,6 +75,59 @@ public class MainActivity extends AppCompatActivity {
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         sendIntent.putExtra(BUNDLE_INPUT_JSON, inputJson);
+        sendIntent.setAction("HOME_SCREEN_IPRD");
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
+        Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, NEW_REQUEST_CODE);
+        }
+    }
+
+
+    void openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw() {
+        KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
+        ArrayList<KeyTypeValue> udf = new ArrayList<>();
+        udf.add(keyTypeValue);
+        ArrayList<Integer> verticals = new ArrayList<>();
+        verticals.add(2);
+        CampaignDataClass campaignDataClass =
+                new CampaignDataClassBuilder()
+                        .setId("6ecb0566-7006-4382-9cdc-202d9010858a")
+                        .setName("Oyo State June 2021 Health Campaign")
+                        .setUrl("https://health.oyostate.gov.ng/tomotiya/")
+                        .setVerticals(verticals)
+                        .setLocationPrecision(2)
+                        .setTimePrecision(5)
+                        .setUdf(udf)
+                        .build();
+
+        FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
+                new FamilyMemberDataBuilder()
+                        .setDob("1993-09-12")
+                        .setGender("M")
+                        .setHead(true)
+                        .setInputOpenCampLinkId("ABCDEFGH")
+                        .setMemberID("1234")
+                        .setFirstName("kash")
+                        .setLastName("last")
+                        .setStatus(FamilyMemberDataClass.Status.New)
+                        .build()
+        };
+
+        BloodDrawMessageRequest bloodDrawMessageRequest =
+                new BloodDrawMessageRequestBuilder()
+                        .setCampaign(campaignDataClass)
+                        .setFamilyID("tempID")
+                        .setHcwUserName("tempUser")
+                        .setCountryCode("+91")
+                        .setPhoneNumber("9712528223")
+                        .setVerificationMethod("BIOMETRIC")
+                        .setFamilyMembers(familyMemberDataClasses)
+                        .build();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        sendIntent.putExtra(BUNDLE_INPUT_JSON, bloodDrawMessageRequest.toJsonString());
         sendIntent.setAction("HOME_SCREEN_IPRD");
         sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.records.OpenCampLinkHomeActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
@@ -96,8 +158,10 @@ public class MainActivity extends AppCompatActivity {
                         .setDob("1993-09-12")
                         .setGender("M")
                         .setHead(true)
+                        .setInputOpenCampLinkId("ABdsad")
                         .setMemberID("1234")
-                        .setName("kash")
+                        .setFirstName("kash")
+                        .setLastName("last")
                         .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };
