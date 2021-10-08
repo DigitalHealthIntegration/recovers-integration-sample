@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 import static com.iprd.testapplication.MainActivity.BUNDLE_INPUT_JSON;
 import static com.iprd.testapplication.MainActivity.BUNDLE_OUTPUT_JSON;
 import static com.iprd.testapplication.MainActivity.NEW_REQUEST_CODE;
-import static com.iprd.testapplication.MainActivity.QR_REQUEST_CODE;
 
 public class QrScannerActivity extends AppCompatActivity {
     public static final String QR_DATA_BUNDLE_KEY = "qr_data_string";
@@ -50,13 +49,15 @@ public class QrScannerActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private static final Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+    boolean isScanned = false;
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qr_scanner_activity);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initViews();
     }
 
@@ -119,7 +120,9 @@ public class QrScannerActivity extends AppCompatActivity {
                             try {
                                 URL qrDataString = new URL(barcodes.valueAt(0).displayValue);
                                 String shortIdToRecallWithQR = qrDataString.getQuery().split("=")[1].replace("&v", "");
-                                openRecovers(shortIdToRecallWithQR);
+                                txtBarcodeValue.removeCallbacks(null);
+                                if (!isScanned)
+                                    openRecovers(shortIdToRecallWithQR);
                             } catch (MalformedURLException | IndexOutOfBoundsException e) {
                                 e.printStackTrace();
                             }
@@ -131,8 +134,10 @@ public class QrScannerActivity extends AppCompatActivity {
         });
     }
 
-    void openRecovers(String shortIdToRecallWithQR){
+    void openRecovers(String shortIdToRecallWithQR) {
+        isScanned = true;
         cameraSource.stop();
+        barcodeDetector.release();
         KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
         ArrayList<KeyTypeValue> udf = new ArrayList<>();
         udf.add(keyTypeValue);
@@ -154,6 +159,8 @@ public class QrScannerActivity extends AppCompatActivity {
                         .setCampaign(campaignDataClass)
                         .setFamilyID("tempID")
                         .setHcwUserName("tempUser")
+                        .setClinicGuid("80608e5b-993e-4f27-97ed-f89188aa0954")
+                        .setClinicName("Narayana Hospital")
                         .setHcwUserId("tempUser@test.org")
                         .setOpenCampLinkId(shortIdToRecallWithQR)
                         .setVerificationMethod("BIOMETRIC")
@@ -168,20 +175,22 @@ public class QrScannerActivity extends AppCompatActivity {
         if (sendIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(chooser, NEW_REQUEST_CODE);
         }
+        finish();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-         if (requestCode == NEW_REQUEST_CODE) {
-            if(data!=null){
+        if (requestCode == NEW_REQUEST_CODE) {
+            if (data != null) {
                 Toast.makeText(this,
                         "Output Json : " +
                                 data.getExtras().getString(BUNDLE_OUTPUT_JSON),
                         Toast.LENGTH_LONG).show();
                 try {
                     JSONObject jObject = new JSONObject(data.getExtras().getString(BUNDLE_OUTPUT_JSON));
-                    if(jObject.getString("resultCode").equals("0")){
+                    if (jObject.getString("resultCode").equals("0")) {
                         String shortId = jObject.getString("openCampLinkId");
                     }
                 } catch (JSONException e) {
@@ -191,6 +200,7 @@ public class QrScannerActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();

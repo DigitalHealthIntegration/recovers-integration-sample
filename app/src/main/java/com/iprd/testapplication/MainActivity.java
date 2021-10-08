@@ -137,14 +137,14 @@ public class MainActivity extends AppCompatActivity {
 
         FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
                 new FamilyMemberDataBuilder()
-                        .setDob("1997-09-12")
+                        .setDob("1994-09-12")
                         .setGender("M")
                         .setHead(true)
                         .setMemberID("1234")
                         .setFirstName("kash")
                         .setLastName("jois")
-                        .setInputOpenCampLinkId("L8MJJCCVRLF4")
-                        .setStatus(FamilyMemberDataClass.Status.Update)
+                        .setInputOpenCampLinkId("")
+                        .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };
 
