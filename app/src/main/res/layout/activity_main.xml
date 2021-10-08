@@ -73,6 +73,21 @@
         app:layout_constraintTop_toBottomOf="@id/tvBloodDraw"/>
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputOCL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCheckIn">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputOCLEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please type the OCL Code eg: C1RV2R68FGJZ" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btnShowLinking"
         android:layout_width="match_parent"
@@ -81,6 +96,6 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCheckIn"/>
+        app:layout_constraintTop_toBottomOf="@id/inputOCL"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -133,6 +133,7 @@ public class QrScannerActivity extends AppCompatActivity {
 
     void openRecovers(String shortIdToRecallWithQR){
         cameraSource.stop();
+        barcodeDetector.release();
         KeyTypeValue keyTypeValue = new KeyTypeValue("key", "type", "value");
         ArrayList<KeyTypeValue> udf = new ArrayList<>();
         udf.add(keyTypeValue);

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -53,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
     private String shortId = "51GY4AWC5L76";
     private String shortIdToRecallWithQR = "51GY4AWC5L76";
     private String name = "apra2793@gmail.com";
+    EditText inputOcl;
     String inputJson = "{\"familyId\": \"789\",\"hcwUserName\": \"nks@apra.in\",\"primaryContactPhone\": \"\",\"openCampLinkId\":\"\",\"familySurveyResponse\":\"\",\"familyMembers\": [{\"memberId\": \"23\",\"name\": \"Matt\",\"dob\": \"1970-05-26\",\"gender\": \"M\",\"status\": \"New\"},{\"memberId\": \"12\",\"name\": \"Roma\",\"dob\": \"1997-07-26\",\"gender\": \"F\",\"status\": \"New\"}]};\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        inputOcl = findViewById(R.id.inputOCLEdit);
         Button btnNew = findViewById(R.id.btnNew);
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnRecall = findViewById(R.id.btnRecall);
@@ -135,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                         .setUdf(udf)
                         .build();
 
+        String inputOCL = inputOcl.getText().toString();
+        if(inputOCL==null || inputOCL==""){
+            inputOCL = "C1RV2R68FGJZ";
+        }
         FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
                 new FamilyMemberDataBuilder()
                         .setDob("1997-09-12")
@@ -143,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         .setMemberID("1234")
                         .setFirstName("kash")
                         .setLastName("jois")
-                        .setInputOpenCampLinkId("L8MJJCCVRLF4")
+                        .setInputOpenCampLinkId(inputOCL)
                         .setStatus(FamilyMemberDataClass.Status.Update)
                         .build()
         };
