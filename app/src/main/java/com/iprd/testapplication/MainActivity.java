@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
         }
         btnNew.setOnClickListener(v -> {
-            openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw();
+            openSmartHealthAppWithCampaignDetails();
         });
 
         btnEdit.setOnClickListener(v -> {
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 "    ]\n" +
                 "  },\n" +
                 "  \"familyId\": \"789\",\n" +
-                "  \"hcwUserName\": \"nks@apra.in\",\n" +
+                "  \"hcwUserName\": \"apralabs4@apra.in\",\n" +
                 "  \"primaryContactPhone\": \"\",\n" +
                 "  \"openCampLinkId\": \"\",\n" +
                 "  \"familyMembers\": [\n" +
