@@ -105,6 +105,7 @@ public class FamilySurveyMessageRequestUnitTest {
                 "      \"memberId\": \"11\",\n" +
                 "      \"firstName\": \"Matt\",\n" +
                 "      \"lastName\": \"Nime\",\n" +
+                "      \"name\": \"Matt Nime\",\n" +
                 "      \"dob\": \"1996-09-25\",\n" +
                 "      \"gender\": \"M\",\n" +
                 "      \"status\": \"New\",\n" +

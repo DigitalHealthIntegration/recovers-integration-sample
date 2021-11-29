@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
         }
         btnNew.setOnClickListener(v -> {
-            openSmartHealthAppWithCampaignDetails();
+            openSmartHealthAppWithCampaignDetailsUsingMessagingProtocol();
         });
 
         btnEdit.setOnClickListener(v -> {
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         BloodDrawMessageRequest bloodDrawMessageRequest = new
                 BloodDrawMessageRequestBuilder()
                 .setCampaign(campaignDataClass)
-                .setHcwUserId("n@s.in")
+                .setHcwUserId("kjois@iprdgroup.com")
                 .setHcwUserName("N S")
                 .setClinicGuid("80608e5b-993e-4f27-97ed-f89188aa0954")
                 .setClinicName("Narayana Hospital")
@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
         Intent sendIntent = new Intent();
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         sendIntent.putExtra(BUNDLE_INPUT_JSON, bloodDrawMessageRequest.toJsonString());
-        sendIntent.setAction("HOME_SCREEN_IPRD");
-        sendIntent.setComponent(new ComponentName("com.iprd.blooddraw", "com.iprd.blooddraw.home.HomeActivity"));
+        sendIntent.setAction("HOME_SCREEN_IPRD_BLOODDRAW");
+        sendIntent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.home.HomeActivity"));
         Intent chooser = Intent.createChooser(sendIntent, "IPRD OCL");
         if (sendIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(chooser, NEW_REQUEST_CODE);
@@ -203,8 +203,7 @@ public class MainActivity extends AppCompatActivity {
                         .setHead(true)
                         .setInputOpenCampLinkId("ABdsad")
                         .setMemberID("1234")
-                        .setFirstName("kash")
-                        .setLastName("last")
+                        .setName("kash jois")
                         .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };

@@ -39,6 +39,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setMemberID("1234")
                         .setFirstName("test")
                         .setLastName("name")
+                        .setName("test name")
                         .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };
@@ -99,6 +100,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setInputOpenCampLinkId("ABSD1234EFGH")
                         .setFirstName("test")
                         .setLastName("name")
+                        .setName("test name")
                         .setStatus(FamilyMemberDataClass.Status.New)
                         .build()
         };

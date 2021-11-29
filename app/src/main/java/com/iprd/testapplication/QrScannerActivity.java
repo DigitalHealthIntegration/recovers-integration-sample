@@ -47,8 +47,7 @@ public class QrScannerActivity extends AppCompatActivity {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-    private static final Logger LOG = Logger.getLogger(QRScannerActivity.class.getName());
-
+    private static final Logger LOG = Logger.getLogger("QR_SCANNER");
     boolean isScanned = false;
 
 

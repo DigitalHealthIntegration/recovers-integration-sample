@@ -14,6 +14,8 @@ public class FamilyMemberDataClass {
     }
     @JsonProperty("memberId")
     private String memberID;
+    @JsonProperty("name")
+    private String name;
     @JsonProperty("firstName")
     private String firstName;
     @JsonProperty("lastName")
@@ -34,6 +36,9 @@ public class FamilyMemberDataClass {
 
     public String getMemberID() { return memberID; }
     void setMemberID(String value) { this.memberID = value; }
+
+    public String getName() { return name; }
+    void setName(String value) { this.name = value; }
 
     public String getLastName() { return lastName; }
     void setLastName(String value) { this.lastName = value; }

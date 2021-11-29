@@ -11,6 +11,11 @@ public class FamilyMemberDataBuilder  {
         return this;
     }
 
+    public FamilyMemberDataBuilder setName(String value) {
+        familyMemberDataClass.setName(value);
+        return this;
+    }
+
     public FamilyMemberDataBuilder setLastName(String value) {
         familyMemberDataClass.setLastName(value);
         return this;
