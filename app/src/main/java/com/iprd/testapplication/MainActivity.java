@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         BloodDrawMessageRequest bloodDrawMessageRequest = new
                 BloodDrawMessageRequestBuilder()
                 .setCampaign(campaignDataClass)
-                .setHcwUserId("kjois@iprdgroup.com")
+                .setHcwUserId("kjois2793@gmail.com")
                 .setHcwUserName("N S")
                 .setClinicGuid("80608e5b-993e-4f27-97ed-f89188aa0954")
                 .setClinicName("Narayana Hospital")
