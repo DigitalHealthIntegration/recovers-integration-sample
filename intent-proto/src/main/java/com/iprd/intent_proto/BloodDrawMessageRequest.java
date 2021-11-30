@@ -36,6 +36,9 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
     private String clinicGuid;
     @JsonProperty("clinicName")
     private String clinicName;
+    @JsonProperty("clinicName")
+    private String clinicCode;
+
 
     public String getHomeImageUri() {
         return homeImageUri;
@@ -145,6 +148,14 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
 
     void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public String getClinicCode() {
+        return clinicCode;
+    }
+
+    void setClinicCode(String clinicCode) {
+        this.clinicCode = clinicCode;
     }
 
     @Override

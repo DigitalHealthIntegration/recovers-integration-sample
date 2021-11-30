@@ -85,6 +85,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setId("campId")
                         .setName("campName")
                         .setUrl("url")
+                        .setCampaignCode("0000")
                         .setVerticals(verticals)
                         .setLocationPrecision(2)
                         .setTimePrecision(3)
@@ -118,6 +119,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
                         .setOpenCampLinkId("ABCD")
                         .setClinicGuid("123456789")
                         .setClinicName("Clinic1234")
+                        .setClinicCode("1234")
                         .setFamilyMembers(familyMemberDataClasses)
                         .build();
 
@@ -125,6 +127,7 @@ public class BaseBaseRequestMessageBuilderUnitTest {
         assertEquals(bloodDrawMessageRequest.getCampaign().getName(),"campName");
         assertEquals(bloodDrawMessageRequest.getCampaign().getVerticals(),verticals);
         assertEquals(bloodDrawMessageRequest.getCampaign().getUrl(),"url");
+        assertEquals(bloodDrawMessageRequest.getCampaign().getCampaignCode(),"0000");
         assertEquals((long)bloodDrawMessageRequest.getCampaign().getLocationPrecision(),(long)Integer.parseInt("2"));
         assertEquals((long)bloodDrawMessageRequest.getCampaign().getTimePrecision(),(long)Integer.parseInt("3"));
         assertEquals(bloodDrawMessageRequest.getCampaign().getUdf(), udf);
@@ -139,6 +142,8 @@ public class BaseBaseRequestMessageBuilderUnitTest {
         assertArrayEquals(bloodDrawMessageRequest.getFamilyMembers(),familyMemberDataClasses);
         assertEquals(bloodDrawMessageRequest.getClinicGuid(),"123456789");
         assertEquals(bloodDrawMessageRequest.getClinicName(),"Clinic1234");
+        assertEquals(bloodDrawMessageRequest.getClinicCode(),"1234");
+
     }
 
 }

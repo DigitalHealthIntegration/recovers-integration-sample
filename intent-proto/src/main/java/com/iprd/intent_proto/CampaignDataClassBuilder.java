@@ -25,6 +25,11 @@ public class CampaignDataClassBuilder {
         return this;
     }
 
+    public CampaignDataClassBuilder setCampaignCode(String campaignCode) {
+        campaignDataClass.setCampaignCode(campaignCode);
+        return this;
+    }
+
     public CampaignDataClassBuilder setLocationPrecision(Integer locationPrecision) {
         campaignDataClass.setLocationPrecision(locationPrecision);
         return this;

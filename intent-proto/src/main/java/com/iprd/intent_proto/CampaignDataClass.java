@@ -69,6 +69,14 @@ public class CampaignDataClass {
         this.udf = udf;
     }
 
+    public String getCampaignCode() {
+        return campaignCode;
+    }
+
+    void setCampaignCode(String campaignCode) {
+        this.campaignCode = campaignCode;
+    }
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
@@ -77,6 +85,8 @@ public class CampaignDataClass {
     private ArrayList<Integer> verticals;
     @JsonProperty("url")
     private String url;
+    @JsonProperty("campaignCode")
+    private String campaignCode;
     @JsonProperty("location_prec")
     private Integer locationPrecision;
     @JsonProperty("time_prec")
