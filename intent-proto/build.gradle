@@ -59,7 +59,7 @@ afterEvaluate {
                 from components.release
                 groupId 'com.iprd'
                 artifactId 'intent-proto'
-                version '0.26'
+                version '0.27'
             }
         }
     }

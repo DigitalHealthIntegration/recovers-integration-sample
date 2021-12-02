@@ -36,7 +36,7 @@ public class BloodDrawMessageRequest extends BaseRequestMessage {
     private String clinicGuid;
     @JsonProperty("clinicName")
     private String clinicName;
-    @JsonProperty("clinicName")
+    @JsonProperty("clinicCode")
     private String clinicCode;
 
 
