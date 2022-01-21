@@ -7,4 +7,5 @@
     <string name="recall">Recall</string>
     <string name="check_in">Check-In</string>
     <string name="show_linking">Show linking</string>
+    <string name="sync">Sync</string>
 </resources>

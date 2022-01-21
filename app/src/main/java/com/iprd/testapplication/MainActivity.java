@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnRecall = findViewById(R.id.btnRecall);
         Button btnCheckIn = findViewById(R.id.btnCheckIn);
         Button btnShowLinking = findViewById(R.id.btnShowLinking);
+        Button btnSync = findViewById(R.id.btnSync);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
@@ -88,9 +89,15 @@ public class MainActivity extends AppCompatActivity {
             openQRForLinkingTest(true);
         });
 
-
         btnCheckIn.setOnClickListener(v -> {
             openSmartHealthAppWithCampaignDetailsUsingMessagingProtocolBloodDraw();
+        });
+
+        btnSync.setOnClickListener(v -> {
+            Intent intent = new Intent("actionSync");
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.setComponent(new ComponentName("com.iprd.opencamplink", "com.iprd.opencamplink.ActionSyncReceiver"));
+            sendBroadcast(intent);
         });
 
     }
@@ -140,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
         String inputOCL = inputOcl.getText().toString();
-        if(inputOCL==null || inputOCL==""){
-            inputOCL = "C1RV2R68FGJZ";
+        if(inputOCL.equals("")){
+            inputOCL = null;
         }
         FamilyMemberDataClass[] familyMemberDataClasses = new FamilyMemberDataClass[]{
                 new FamilyMemberDataBuilder()
@@ -161,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 .setCampaign(campaignDataClass)
                 .setHcwUserId("kjois2793@gmail.com")
                 .setHcwUserName("N S")
-                .setClinicGuid("80608e5b-993e-4f27-97ed-f89188aa0954")
-                .setClinicName("Narayana Hospital")
+                .setClinicGuid("7ceae1ab-c911-446b-b3ea-093c33bb646e")
+                .setClinicName("Test Clinic")
                 .setFamilyMembers(familyMemberDataClasses)
                 .setCountryCode("+91")
                 .setPhoneNumber("8105798127")
